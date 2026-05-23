@@ -1,3 +1,37 @@
+# 🔒 xv6 Synchronization: The "Israeli Lock"
+
+> An Operating Systems project extending the xv6-riscv kernel with a custom, favoritism-based synchronization primitive.
+
+This repository showcases my implementation of kernel-level concurrency mechanisms. By modifying the core xv6-riscv operating system, I introduced process groups and a unique lock that models "controlled unfairness" (inspired by real-world priority scheduling and thread affinity).
+
+## 🚀 Key Features Implemented
+
+* **🎲 Kernel PRNG (Task 0):** Built a Linear Congruential Generator (LCG) directly into the OS kernel, fully exposed to userspace via system calls.
+* **🤝 Process Groups:** Extended the `proc` structure to assign Group IDs (`gid`), allowing the OS to recognize "social connections" between related processes.
+* **🚧 The "Israeli Lock" (Task 1):** Designed a custom synchronization primitive. Instead of strict FIFO queueing, processes belonging to the same group as the lock releaser can "cut the line" based on a configurable probability coefficient.
+* **🏃‍♂️ Relay Race Simulation (Task 2):** Developed a concurrent userspace application simulating a relay race between teams. This visually demonstrates how varying lock favoritism (0% to 100%) impacts system fairness, CPU throughput, and resource starvation.
+
+## 🛠️ Skills Demonstrated
+* **C Programming:** Kernel-space and User-space development.
+* **OS Concepts:** Concurrency, Synchronization, Spinlocks, Race Conditions, Scheduler Fairness, and Starvation.
+* **xv6 Architecture:** System Calls routing, Kernel Data Structures, and Makefile manipulation.
+
+## 💻 How to Run
+
+1. Compile and boot the OS:
+   make qemu
+
+2. Test the core lock logic (tests 0%, 50%, and 100% favoritism):
+   testisraeli
+
+3. Run the concurrent relay race simulation:
+   relay_race
+
+
+---
+
+*The following is the original xv6-riscv documentation and acknowledgments:*
+
 A fork of xv6 with support for devcontainer.
 
 # Installation
@@ -59,3 +93,4 @@ You will need a RISC-V "newlib" tool chain from
 https://github.com/riscv/riscv-gnu-toolchain, and qemu compiled for
 riscv64-softmmu.  Once they are installed, and in your shell
 search path, you can run "make qemu".
+You will need a RISC-V "newlib" tool chain from https://github.com/riscv/riscv-gnu-toolchain, and qemu compiled for riscv64-softmmu. Once they are installed, and in your shell search path, you can run "make qemu".
