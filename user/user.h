@@ -22,6 +22,17 @@ int getpid(void);
 char* sbrk(int);
 int sleep(int);
 int uptime(void);
+void lcg_srand(uint);               // added for task 0
+uint lcg_rand(void);                // added for task 0
+void setgid(int);                   // TASK 1 - set group ID for Israeli lock  
+int getgid(void);                   // TASK 1 - get group ID for Israeli lock
+int israeli_create(int);            // TASK 1 - create Israeli lock for group ID, return 0 on success, -1 on failure
+int israeli_acquire(int);           // TASK 1 - acquire Israeli lock by group ID
+int israeli_release(int);           // TASK 1 - release Israeli lock by group ID
+int israeli_destroy(int);           // TASK 1 - destroy Israeli lock by group ID
+int israeli_inc_score(int);         // TASK 2 - increment score for team, return new score
+int israeli_get_max_score(void);    // TASK 2 - get max score among all teams
+void israeli_reset_scores(void);    // TASK 2 - reset all team scores to 0
 
 // ulib.c
 int stat(const char*, struct stat*);

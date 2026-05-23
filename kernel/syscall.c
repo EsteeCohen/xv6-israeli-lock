@@ -101,7 +101,17 @@ extern uint64 sys_unlink(void);
 extern uint64 sys_link(void);
 extern uint64 sys_mkdir(void);
 extern uint64 sys_close(void);
-
+extern uint64 sys_lcg_srand(void);                  //added for task 0
+extern uint64 sys_lcg_rand(void);                   //added for task 0
+extern uint64 sys_setgid(void);                     // TASK 1 - set group ID for Israeli lock
+extern uint64 sys_getgid(void);                     // TASK 1 - get group ID for Israeli lock
+extern uint64 sys_israeli_create(void);             // TASK 1 - create Israeli lock, return lock ID on success, -1 on failure
+extern uint64 sys_israeli_acquire(void);            // TASK 1 - acquire Israeli lock by lock ID
+extern uint64 sys_israeli_release(void);            // TASK 1 - release Israeli lock by lock ID
+extern uint64 sys_israeli_destroy(void);            // TASK 1 - destroy Israeli lock by lock ID
+extern uint64 sys_israeli_inc_score(void);          // TASK 2 - increment score for team, return new score
+extern uint64 sys_israeli_get_max_score(void);      // TASK 2 - get max score among all teams
+extern uint64 sys_israeli_reset_scores(void);       // TASK 2 - reset all team scores to 0
 // An array mapping syscall numbers from syscall.h
 // to the function that handles the system call.
 static uint64 (*syscalls[])(void) = {
@@ -126,6 +136,17 @@ static uint64 (*syscalls[])(void) = {
 [SYS_link]    sys_link,
 [SYS_mkdir]   sys_mkdir,
 [SYS_close]   sys_close,
+[SYS_lcg_srand] sys_lcg_srand,                          //added for task 0
+[SYS_lcg_rand]  sys_lcg_rand,                           //added for task 0
+[SYS_setgid]    sys_setgid,                             // TASK 1 - set group ID for Israeli lock
+[SYS_getgid]    sys_getgid,                             // TASK 1 - get group ID for Israeli lock
+[SYS_israeli_create] sys_israeli_create,                // TASK 1 - create Israeli lock, return lock ID on success, -1 on failure
+[SYS_israeli_acquire] sys_israeli_acquire,              // TASK 1 - acquire Israeli lock by lock ID
+[SYS_israeli_release] sys_israeli_release,              // TASK 1 - release Israeli lock by lock ID
+[SYS_israeli_destroy] sys_israeli_destroy,              // TASK 1 - destroy Israeli lock by lock ID
+[SYS_israeli_inc_score] sys_israeli_inc_score,          // TASK 2 - increment score for team, return new score
+[SYS_israeli_get_max_score] sys_israeli_get_max_score,  // TASK 2 - get max score among all teams
+[SYS_israeli_reset_scores] sys_israeli_reset_scores,    // TASK 2 - reset all team scores to 0
 };
 
 void

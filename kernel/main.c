@@ -12,6 +12,7 @@ main()
 {
   if(cpuid() == 0){
     consoleinit();
+    lcg_init(); //added for task 0
     printfinit();
     printf("\n");
     printf("xv6 kernel is booting\n");
@@ -20,6 +21,7 @@ main()
     kvminit();       // create kernel page table
     kvminithart();   // turn on paging
     procinit();      // process table
+    israeli_init();  // TASK 1 - added for israeli lock
     trapinit();      // trap vectors
     trapinithart();  // install kernel trap vector
     plicinit();      // set up interrupt controller

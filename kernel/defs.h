@@ -106,6 +106,7 @@ void            yield(void);
 int             either_copyout(int user_dst, uint64 dst, void *src, uint64 len);
 int             either_copyin(void *dst, int user_src, uint64 src, uint64 len);
 void            procdump(void);
+int             get_proc_gid(int);  // TASK 1 - get group ID of process by PID
 
 // swtch.S
 void            swtch(struct context*, struct context*);
@@ -117,6 +118,11 @@ void            initlock(struct spinlock*, char*);
 void            release(struct spinlock*);
 void            push_off(void);
 void            pop_off(void);
+
+// lcg.c
+void            lcg_init(void);     //added for task 0
+void            lcg_srand(uint);    //added for task 0
+uint            lcg_rand(void);     //added for task 0
 
 // sleeplock.c
 void            acquiresleep(struct sleeplock*);
@@ -184,6 +190,16 @@ void            plic_complete(int);
 void            virtio_disk_init(void);
 void            virtio_disk_rw(struct buf *, int);
 void            virtio_disk_intr(void);
+
+// israeli.c
+void            israeli_init(void);             // TASK 1 - initialize Israeli lock system
+int             israeli_create(int);            // TASK 1 - create Israeli lock for group ID, return 0 on success, -1 on failure
+int             israeli_acquire(int);           //TASK 1 - acquire Israeli lock by group ID
+int             israeli_release(int);           //TASK 1 - release Israeli lock by group ID
+int             israeli_destroy(int);           //TASK 1 - destroy Israeli lock by group ID
+int             israeli_inc_score(int);         // TASK 2 - increment score for team, return new score
+int             israeli_get_max_score(void);    // TASK 2 - get max score among all teams
+void            israeli_reset_scores(void);     // TASK 2 - reset all team scores to 0
 
 // number of elements in fixed-size array
 #define NELEM(x) (sizeof(x)/sizeof((x)[0]))

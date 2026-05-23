@@ -124,6 +124,7 @@ allocproc(void)
 found:
   p->pid = allocpid();
   p->state = USED;
+  p->gid = -1; // TASK 1 - initialize group ID to -1 (no group)
 
   // Allocate a trapframe page.
   if((p->trapframe = (struct trapframe *)kalloc()) == 0){
@@ -680,4 +681,20 @@ procdump(void)
     printf("%d %s %s", p->pid, state, p->name);
     printf("\n");
   }
+}
+
+// TASK 1 - get group ID of process with given PID
+// Returns group ID on success, -1 if no such process exists.
+int get_proc_gid(int pid) {
+  struct proc *p;
+  for(p = proc; p < &proc[NPROC]; p++){
+    acquire(&p->lock);
+    if(p->pid == pid){
+      int gid = p->gid;
+      release(&p->lock);
+      return gid;
+    }
+    release(&p->lock);
+  }
+  return -1;
 }

@@ -36,3 +36,14 @@ entry("getpid");
 entry("sbrk");
 entry("sleep");
 entry("uptime");
+entry("lcg_srand");             # added for task 0
+entry("lcg_rand");              # added for task 0
+entry("setgid");                # TASK 1 - set group ID for Israeli lock
+entry("getgid");                # TASK 1 - get group ID for Israeli lock
+entry("israeli_create");        # TASK 1 - create Israeli lock, return lock ID on success, -1 on failure
+entry("israeli_acquire");       # TASK 1 - acquire Israeli lock by lock ID
+entry("israeli_release");       # TASK 1 - release Israeli lock by lock ID
+entry("israeli_destroy");       # TASK 1 - destroy Israeli lock by lock ID
+entry("israeli_inc_score");     # TASK 2 - increment score for team, return new score
+entry("israeli_get_max_score"); # TASK 2 - get max score among all teams
+entry("israeli_reset_scores");  # TASK 2 - reset all team scores to 0
